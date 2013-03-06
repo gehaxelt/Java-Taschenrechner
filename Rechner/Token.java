@@ -29,6 +29,10 @@ public class Token {
 				return this.value;
 		}
 		
+		public int getType() {
+				return this.type;
+		}
+		
 		
 		public String toString() {
 

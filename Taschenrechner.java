@@ -8,21 +8,17 @@ public class Taschenrechner {
 			
 			Vector<String> scanresult = scanner.scan(args[0]);
 			
-			/*System.out.println("Scanner:");
-			for(int i=0; i < scanresult.size(); i++)
-				System.out.println(scanresult.elementAt(i));*/
-			
 			System.out.println(scanresult);
 			
 			Parser parser = new Parser();
-			Vector<Token> tokens = parser.parse(scanresult);
+			TokenTree tokentree = parser.parse(scanresult);
 			
-			System.out.println(tokens);
+			System.out.println(tokentree);
 			
-			/*System.out.println("Parser:");
-			for(int i=0; i < tokens.size(); i++) {
-					System.out.println(tokens.elementAt(i).toString());
-			}*/
+			Evaluator evaluator = new Evaluator();
+			int result = evaluator.eval(tokentree);
+			
+			System.out.println("Result:" + String.valueOf(result));
 			
 		}
 	

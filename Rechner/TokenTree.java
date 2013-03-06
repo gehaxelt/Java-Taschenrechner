@@ -2,16 +2,22 @@ package Rechner;
 
 import Rechner.Token;
 
-class TokenTree {
+public class TokenTree {
 
 	private 
 		Token head;
 		TokenTree left, right;
+		boolean leaf;
 		
 	public TokenTree(Token head, TokenTree left, TokenTree right) {
 		this.head = head;
 		this.left = left;
 		this.right = right;
+		if ((this.left == null) && (this.right == null)) {
+				this.leaf = true;
+		} else {
+				this.leaf = false;
+		}
 	}
 	
 	public Token getHead() {
@@ -33,8 +39,28 @@ class TokenTree {
 			this.right = right;
 	}
 	
+	public boolean isLeaf() {
+			return this.leaf;
+	}
+	
 	public String toString() {
-			return "( " + this.left.toString() + ")--(" + this.head.toString()+")--("+this.right.toString()+")";
+		String leftstr,rightstr,headstr;
+		if (this.left == null) {
+			leftstr = "";
+		} else {
+			leftstr = this.left.toString();
+		}
+		if(this.right == null) {
+			rightstr = "";
+		} else {
+			rightstr = this.right.toString();
+		}
+		if(this.head == null) {
+			headstr = "";
+		} else {
+			headstr = this.head.toString();
+		}
+		return "(" + leftstr + ")--(" + headstr+")--("+rightstr+")";
 	}
 	
 
