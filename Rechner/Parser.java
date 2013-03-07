@@ -24,17 +24,19 @@ public class Parser {
 	/* parse a given Expression */
 	private TokenTree parseExpr(Vector<String> List) {
 			
-			//negative number (-5)
+			//negative number [(,-,5,)]
 			if((this.comp(List,0,"(")) && (this.comp(List,1,"-")) && (this.isInteger(List.elementAt(2))) && (this.comp(List,3,")"))) {
 				Token number = new Token(Token.isNUM);
 				number.setValue(-1*Double.parseDouble(List.elementAt(2)));
 				List.subList(0,3).clear();
+				//Create a Leaf
 				return new TokenTree(number,null,null);
 			
-			//normal numbers 5
+			//normal numbers [5]
 			} else if(this.isInteger(List.elementAt(0))) {
 				Token number = new Token(Token.isNUM);
 				number.setValue(Double.parseDouble(List.elementAt(0)));
+				//Create a Leaf
 				return new TokenTree(number,null,null);
 			
 			//Operators and nested terms
@@ -45,21 +47,25 @@ public class Parser {
 				TokenTree rightexpr = new TokenTree(null,null,null);
 				Vector<String> subvec = new Vector<String>();
 				
-				//No more nesting
+				//No nesting
+				//e.g. [(,5,+,5,)]
 				if (! this.comp(List,0,"(")) {
 					subvec.addElement(List.elementAt(0));
 					leftexpr = this.parseExpr(subvec);
 					List.removeElementAt(0);
 					
 				//nesting
+				//e.g. [(,(5,+,3),+,3,)]
 				} else if (this.comp(List,0,"(")) {
 					List.removeElementAt(0);
 					subvec.clear();
-					int NestingEnd = this.findLeftNestingEnd(List);				
+					int NestingEnd = this.findLeftNestingEnd(List);	
+					//is nested	=> parse Subexpr and delete it from list		
 					if (NestingEnd>0) {
 						subvec.addAll(List.subList(0,NestingEnd));
 						leftexpr = this.parseExpr(subvec);
 						List.subList(0,NestingEnd).clear();
+					//not nested => [(,5,+,5)]
 					} else {
 						subvec.clear();
 						subvec.addElement(List.elementAt(0));
@@ -68,12 +74,13 @@ public class Parser {
 					}
 				}
 				
+				//parse Operator - will then be the first element of the list
 				Token operator = this.parseOperator(List);
 				List.removeElementAt(0);
 				
+				subvec.clear();
 				//no nesting
-				if(List.elementAt(0).compareTo("(") != 0) {
-					subvec.clear();
+				if(! this.comp(List,0,"(")) {
 					subvec.addElement(List.elementAt(0));
 					rightexpr= this.parseExpr(subvec);
 					List.removeElementAt(0);
@@ -81,7 +88,6 @@ public class Parser {
 				//more nesting
 				} else if (this.comp(List,0,"(")){
 					//List.removeElementAt(0);
-					subvec.clear();
 					int NestingEnd = this.findLeftNestingEnd(List);
 					if (NestingEnd>0) {
 						subvec.addAll(List.subList(0,NestingEnd));
@@ -89,14 +95,15 @@ public class Parser {
 						List.subList(0,NestingEnd-1).clear();
 
 					} else {
-						subvec.clear();
 						subvec.addElement(List.elementAt(0));
 						rightexpr = this.parseExpr(subvec);
 						List.removeElementAt(0);
 					}
 				}
 				
-				if(List.elementAt(0).compareTo(")") == 0) {
+				//parse end - if everything went right, only a ) should be left in the list
+				//return the TokenTree
+				if(this.comp(List,0,")")) {
 					return new TokenTree(operator, leftexpr, rightexpr);
 					
 				} else {
@@ -107,6 +114,8 @@ public class Parser {
 			
 			return new TokenTree(null,null,null);
 	}
+	
+	
 	
 	private int findLeftNestingEnd(Vector<String> List) {
 			int braceCount = 0;

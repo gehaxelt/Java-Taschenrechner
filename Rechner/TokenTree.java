@@ -8,7 +8,9 @@ import Rechner.Token;
  * 	 	/     \
  *[Tokentree] [Tokentree]
  *  Left		 Right
- * */
+ * 
+ * 
+ */
 
 public class TokenTree {
 
