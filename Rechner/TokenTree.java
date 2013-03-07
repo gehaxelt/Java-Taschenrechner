@@ -2,6 +2,14 @@ package Rechner;
 
 import Rechner.Token;
 
+/* TokenTree:
+ * 		 Head
+ * 		[Token]
+ * 	 	/     \
+ *[Tokentree] [Tokentree]
+ *  Left		 Right
+ * */
+
 public class TokenTree {
 
 	private 
@@ -13,6 +21,8 @@ public class TokenTree {
 		this.head = head;
 		this.left = left;
 		this.right = right;
+		
+		//If left & right are null then the tree is a leaf
 		if ((this.left == null) && (this.right == null)) {
 				this.leaf = true;
 		} else {
@@ -43,8 +53,14 @@ public class TokenTree {
 			return this.leaf;
 	}
 	
+	/*Return the tree as a string.
+	 * (LEFT)--(HEAD)--(RIGHT)
+	 * Empty strings if object is null
+	 * */
 	public String toString() {
+		
 		String leftstr,rightstr,headstr;
+		
 		if (this.left == null) {
 			leftstr = "";
 		} else {
@@ -60,6 +76,7 @@ public class TokenTree {
 		} else {
 			headstr = this.head.toString();
 		}
+		
 		return "(" + leftstr + ")--(" + headstr+")--("+rightstr+")";
 	}
 	

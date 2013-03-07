@@ -4,17 +4,17 @@ package Rechner;
 public class Token {
 	
 		private 
-			int value;
+			int value; //value of the number
 			int type;
 			
 		public
-			static final int PLUS = 0;
-			static final int MINUS =  1;
-			static final int MULT = 2;
-			static final int DIV = 3;
-			static final int isNUM = 4;
-			static final int OPEN = 5;
-			static final int CLOSE = 6;
+			static final int PLUS = 0; /* + */
+			static final int MINUS =  1;/* - */
+			static final int MULT = 2;/* * */
+			static final int DIV = 3;/* / */
+			static final int isNUM = 4;/* is the token a number? */
+			static final int OPEN = 5; /* ( */
+			static final int CLOSE = 6; /* ) */
 			
 		public Token(int type) {
 				this.type = type;
