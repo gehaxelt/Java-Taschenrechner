@@ -27,14 +27,14 @@ public class Parser {
 			//negative number (-5)
 			if((this.comp(List,0,"(")) && (this.comp(List,1,"-")) && (this.isInteger(List.elementAt(2))) && (this.comp(List,3,")"))) {
 				Token number = new Token(Token.isNUM);
-				number.setValue(-1*Integer.parseInt(List.elementAt(2)));
+				number.setValue(-1*Double.parseDouble(List.elementAt(2)));
 				List.subList(0,3).clear();
 				return new TokenTree(number,null,null);
 			
 			//normal numbers 5
 			} else if(this.isInteger(List.elementAt(0))) {
 				Token number = new Token(Token.isNUM);
-				number.setValue(Integer.parseInt(List.elementAt(0)));
+				number.setValue(Double.parseDouble(List.elementAt(0)));
 				return new TokenTree(number,null,null);
 			
 			//Operators and nested terms

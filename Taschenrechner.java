@@ -29,7 +29,7 @@ public class Taschenrechner {
 			
 			/*Evaluate the syntaxtree */
 			Evaluator evaluator = new Evaluator();
-			int result = evaluator.eval(tokentree);
+			double result = evaluator.eval(tokentree);
 			
 			/*print the result */
 			System.out.println("Result:" + String.valueOf(result));

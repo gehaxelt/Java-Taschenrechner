@@ -6,7 +6,7 @@ import Rechner.TokenTree;
 
 public class Evaluator {
 	
-	public int eval(TokenTree tree) {
+	public double eval(TokenTree tree) {
 		try {
 			if(tree.isLeaf()) {
 				return tree.getHead().getValue() ;

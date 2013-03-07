@@ -4,7 +4,7 @@ package Rechner;
 public class Token {
 	
 		private 
-			int value; //value of the number
+			double value; //value of the number
 			int type;
 			
 		public
@@ -21,11 +21,11 @@ public class Token {
 				this.value = 0;
 		}
 		
-		public void setValue(int val) {
+		public void setValue(double val) {
 				this.value = val;
 		}
 		
-		public int getValue() {
+		public double getValue() {
 				return this.value;
 		}
 		
