@@ -116,7 +116,7 @@ public class Parser {
 	}
 	
 	
-	
+	//counts the braces and finds a subexpression
 	private int findLeftNestingEnd(Vector<String> List) {
 			int braceCount = 0;
 			int pos = 0;
@@ -132,23 +132,6 @@ public class Parser {
 					pos++;
 			} while (List.size() != pos);
 			return pos;
-	}
-	
-	private int findRightNestingEnd(Vector<String> List) {
-			int braceCount = 0;
-			int pos = List.size()-1;
-			do {
-					if(comp(List,pos,"(")) {
-						braceCount++;
-					}
-					else if(comp(List,pos,")")) {
-						braceCount--;
-					} else if(braceCount==0)
-						break;
-						
-					pos--;
-			} while (1 != pos);
-			return List.size()-pos;
 	}
 	
 	//Parse an operator into an operator-token
